@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURVEY - FAM Ladies Night Out / Nee=Nee's Soul Tour Party Bus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], textarea, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"], input[type="number"] {
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SURVEY - FAM Ladies Night Out / Nee=Nee's Soul Tour Party Bus</h1>
+        <form action="results.html" method="post">
+            <label>1. Did you enjoy the Party Bus enough to go again?</label>
+            <input type="radio" id="yes" name="enjoy_party_bus" value="Yes" required>
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="enjoy_party_bus" value="No">
+            <label for="no">No</label>
+            
+            <label>2. Which location did you like best? Shift the events up/down to rank them in the order of what you like best? (Number 1-7; Your favorite is #1)</label>
+            <ul>
+                <li><input type="number" name="ranking[bus_ride]" min="1" max="7" required> The Bus Ride</li>
+                <li><input type="number" name="ranking[dc_skyline]" min="1" max="7" required> Kennedy Center DC Skyline - Panoramic Views</li>
+                <li><input type="number" name="ranking[watergate_steps]" min="1" max="7" required> Watergate Steps Overlooking Potomac River</li>
+                <li><input type="number" name="ranking[mlk_statue]" min="1" max="7" required> Martin Luther King Memorial Statue</li>
+                <li><input type="number" name="ranking[lincoln_statue]" min="1" max="7" required> Lincoln Memorial Statue</li>
+                <li><input type="number" name="ranking[haines_point]" min="1" max="7" required> Haines Point - Washington Channel View of DC Wharf w/Fireworks</li>
+                <li><input type="number" name="ranking[wind_down]" min="1" max="7" required> Doin "U" - Wind-Down Lawn Chair Chillin’ at Haines Point Park; Music and Conversation</li>
+            </ul>
+
+            <label for="add_location">3. Add a location you would like to visit:</label>
+            <textarea id="add_location" name="add_location" rows="3" required></textarea>
+            
+            <label for="comments">4. Include comment(s), if you like:</label>
+            <textarea id="comments" name="comments" rows="3"></textarea>
+            
+            <label for="name">5. Your name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
