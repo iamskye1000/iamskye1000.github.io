@@ -10,6 +10,8 @@
             background-color: #f0f8ff;
             margin: 0;
             padding: 0;
+            position: relative;
+            min-height: 100vh;
         }
         .container {
             max-width: 800px;
@@ -26,7 +28,7 @@
         p {
             color: #666;
         }
-        a {
+        a, button {
             display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
@@ -35,9 +37,30 @@
             text-decoration: none;
             font-size: 16px;
             border-radius: 5px;
+            cursor: pointer;
+            border: none;
         }
-        a:hover {
+        a:hover, button:hover {
             background-color: #45a049;
+        }
+        .admin-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #888888;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .admin-link:hover {
+            background-color: #666666;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -47,5 +70,24 @@
         <p>Thank you for participating in our event. Please take a few moments to fill out our survey and share your experience.</p>
         <a href="survey.html">Start Survey</a>
     </div>
+    <button class="admin-link" onclick="showPasswordField()">Admin Only</button>
+    <div id="passwordField" class="hidden">
+        <input type="password" id="adminPassword" placeholder="Enter Password">
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+    <script>
+        function showPasswordField() {
+            document.getElementById('passwordField').classList.remove('hidden');
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'Go1ngP@rtyBu$') {
+                window.location.href = 'collated_results.html?authorized=true';
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+    </script>
 </body>
 </html>
