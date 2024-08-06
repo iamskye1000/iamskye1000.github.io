@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURVEY - FAM Ladies Night Out / Nee=Nee's Soul Tour Party Bus</title>
+    <title>SURVEY - FAM Ladies Night Out / Nee-Nee's Soul Tour Party Bus</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,8 +56,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>SURVEY - FAM Ladies Night Out / Nee=Nee's Soul Tour Party Bus</h1>
-        <form action="results.html" method="post">
+        <h1>SURVEY - FAM Ladies Night Out / Nee-Nee's Soul Tour Party Bus</h1>
+        <form id="survey-form">
             <label>1. Did you enjoy the Party Bus enough to go again?</label>
             <input type="radio" id="yes" name="enjoy_party_bus" value="Yes" required>
             <label for="yes">Yes</label>
@@ -84,8 +84,32 @@
             <label for="name">5. Your name:</label>
             <input type="text" id="name" name="name" required>
             
-            <button type="submit">Submit</button>
+            <button type="button" onclick="submitSurvey()">Submit</button>
         </form>
     </div>
+    <script>
+        function submitSurvey() {
+            const form = document.getElementById('survey-form');
+            const formData = new FormData(form);
+            
+            const surveyData = {};
+            formData.forEach((value, key) => {
+                if (key.includes('ranking')) {
+                    if (!surveyData.ranking) surveyData.ranking = {};
+                    surveyData.ranking[key.split('[')[1].split(']')[0]] = value;
+                } else {
+                    surveyData[key] = value;
+                }
+            });
+
+            localStorage.setItem('surveyData', JSON.stringify(surveyData));
+
+            let collatedData = JSON.parse(localStorage.getItem('collatedSurveyData')) || [];
+            collatedData.push(surveyData);
+            localStorage.setItem('collatedSurveyData', JSON.stringify(collatedData));
+
+            window.location.href = 'user_response.html';
+        }
+    </script>
 </body>
 </html>
