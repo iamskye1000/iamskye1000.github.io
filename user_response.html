@@ -61,8 +61,8 @@
                     <td id="enjoy_party_bus"></td>
                 </tr>
                 <tr>
-                    <td>Ranking of Locations</td>
-                    <td id="ranking"></td>
+                    <td>Your 2 favorite locations</td>
+                    <td id="favorites"></td>
                 </tr>
                 <tr>
                     <td>Add a location you would like to visit</td>
@@ -86,18 +86,12 @@
             
             if (surveyData) {
                 document.getElementById('enjoy_party_bus').innerText = surveyData.enjoy_party_bus;
-
-                const ranking = [];
-                for (let key in surveyData.ranking) {
-                    ranking.push([key.replace(/_/g, ' '), surveyData.ranking[key]]);
-                }
-                ranking.sort((a, b) => a[1] - b[1]);
-                const rankingDisplay = ranking.map(item => `${item[1]}: ${item[0]}`).join('<br>');
-                document.getElementById('ranking').innerHTML = rankingDisplay;
-
+                document.getElementById('favorites').innerText = surveyData.favorites;
                 document.getElementById('add_location').innerText = surveyData.add_location;
                 document.getElementById('comments').innerText = surveyData.comments;
                 document.getElementById('name').innerText = surveyData.name;
             }
         });
     </script>
+</body>
+</html>
