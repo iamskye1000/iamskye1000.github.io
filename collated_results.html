@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Results - FAM Ladies Night Out / Nee=Nee's Soul Tour Party Bus</title>
+    <title>Your Survey Response - FAM Ladies Night Out / Nee-Nee's Soul Tour Party Bus</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,11 +38,16 @@
         .results-table td {
             background-color: #ffffff;
         }
+        p.message {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Survey Results - FAM Ladies Night Out / Nee=Nee's Soul Tour Party Bus</h1>
+        <h1>Your Survey Response</h1>
         <table class="results-table">
             <thead>
                 <tr>
@@ -51,29 +56,50 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Survey results will be manually entered or dynamically generated here -->
                 <tr>
                     <td>Did you enjoy the Party Bus enough to go again?</td>
-                    <td><!-- Insert response here --></td>
+                    <td id="enjoy_party_bus"></td>
                 </tr>
                 <tr>
                     <td>Ranking of Locations</td>
-                    <td><!-- Insert ranking response here --></td>
+                    <td id="ranking"></td>
                 </tr>
                 <tr>
                     <td>Add a location you would like to visit</td>
-                    <td><!-- Insert additional location here --></td>
+                    <td id="add_location"></td>
                 </tr>
                 <tr>
                     <td>Comments</td>
-                    <td><!-- Insert comments here --></td>
+                    <td id="comments"></td>
                 </tr>
                 <tr>
                     <td>Your name</td>
-                    <td><!-- Insert name here --></td>
+                    <td id="name"></td>
                 </tr>
             </tbody>
         </table>
+        <p class="message">Results will be shared upon receipt of all submissions.</p>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const surveyData = JSON.parse(localStorage.getItem('surveyData'));
+            
+            if (surveyData) {
+                document.getElementById('enjoy_party_bus').innerText = surveyData.enjoy_party_bus;
+                
+                const ranking = [];
+                for (let key in surveyData.ranking) {
+                    ranking.push([key.replace(/_/g, ' '), surveyData.ranking[key]]);
+                }
+                ranking.sort((a, b) => a[1] - b[1]);
+                const rankingDisplay = ranking.map(item => `${item[1]}: ${item[0]}`).join('<br>');
+                document.getElementById('ranking').innerHTML = rankingDisplay;
+
+                document.getElementById('add_location').innerText = surveyData.add_location;
+                document.getElementById('comments').innerText = surveyData.comments;
+                document.getElementById('name').innerText = surveyData.name;
+            }
+        });
+    </script>
 </body>
 </html>
