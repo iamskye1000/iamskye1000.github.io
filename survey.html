@@ -64,17 +64,19 @@
             <input type="radio" id="no" name="enjoy_party_bus" value="No">
             <label for="no">No</label>
             
-            <label>2. Which location did you like best? Shift the events up/down to rank them in the order of what you like best? (Number 1-7; Your favorite is #1)</label>
+            <label>2. The following is a list of the locations we visited. By number, what are your 2 favorites?</label>
             <ul>
-                <li><input type="number" name="ranking[bus_ride]" min="1" max="7" required> The Bus Ride</li>
-                <li><input type="number" name="ranking[dc_skyline]" min="1" max="7" required> Kennedy Center DC Skyline - Panoramic Views</li>
-                <li><input type="number" name="ranking[watergate_steps]" min="1" max="7" required> Watergate Steps Overlooking Potomac River</li>
-                <li><input type="number" name="ranking[mlk_statue]" min="1" max="7" required> Martin Luther King Memorial Statue</li>
-                <li><input type="number" name="ranking[lincoln_statue]" min="1" max="7" required> Lincoln Memorial Statue</li>
-                <li><input type="number" name="ranking[haines_point]" min="1" max="7" required> Haines Point - Washington Channel View of DC Wharf w/Fireworks</li>
-                <li><input type="number" name="ranking[wind_down]" min="1" max="7" required> Doin "U" - Wind-Down Lawn Chair Chillin’ at Haines Point Park; Music and Conversation</li>
+                <li>1. The Bus Ride</li>
+                <li>2. Kennedy Center DC Skyline - Panoramic Views</li>
+                <li>3. Watergate Steps Overlooking Potomac River</li>
+                <li>4. Martin Luther King Memorial Statue</li>
+                <li>5. Lincoln Memorial Statue</li>
+                <li>6. Haines Point - Washington Channel View of DC Wharf w/Fireworks</li>
+                <li>7. Doin "U" - Wind-Down Lawn Chair Chillin’ at Haines Point Park; Music and Conversation</li>
             </ul>
-
+            <label for="favorites">Your 2 favorite locations (please enter the numbers):</label>
+            <input type="text" id="favorites" name="favorites" required>
+            
             <label for="add_location">3. Add a location you would like to visit:</label>
             <textarea id="add_location" name="add_location" rows="3" required></textarea>
             
