@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Survey Response - FAM Ladies Night Out / Nee-Nee's Soul Tour Party Bus</title>
+    <title>Collated Survey Results - FAM Ladies Night Out / Nee-Nee's Soul Tour Party Bus</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,68 +38,94 @@
         .results-table td {
             background-color: #ffffff;
         }
-        p.message {
-            text-align: center;
-            font-size: 18px;
-            color: #666;
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Your Survey Response</h1>
-        <table class="results-table">
-            <thead>
-                <tr>
-                    <th>Question</th>
-                    <th>Response</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Did you enjoy the Party Bus enough to go again?</td>
-                    <td id="enjoy_party_bus"></td>
-                </tr>
-                <tr>
-                    <td>Ranking of Locations</td>
-                    <td id="ranking"></td>
-                </tr>
-                <tr>
-                    <td>Add a location you would like to visit</td>
-                    <td id="add_location"></td>
-                </tr>
-                <tr>
-                    <td>Comments</td>
-                    <td id="comments"></td>
-                </tr>
-                <tr>
-                    <td>Your name</td>
-                    <td id="name"></td>
-                </tr>
-            </tbody>
-        </table>
-        <p class="message">Results will be shared upon receipt of all submissions.</p>
+        <h1>Collated Survey Results</h1>
+        <div id="results-container">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Response</th>
+                    </tr>
+                </thead>
+                <tbody id="collated-results">
+                    <!-- Collated results will be displayed here -->
+                </tbody>
+            </table>
+            <button onclick="clearData()">Clear All Data</button>
+        </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const surveyData = JSON.parse(localStorage.getItem('surveyData'));
-            
-            if (surveyData) {
-                document.getElementById('enjoy_party_bus').innerText = surveyData.enjoy_party_bus;
-                
-                const ranking = [];
-                for (let key in surveyData.ranking) {
-                    ranking.push([key.replace(/_/g, ' '), surveyData.ranking[key]]);
-                }
-                ranking.sort((a, b) => a[1] - b[1]);
-                const rankingDisplay = ranking.map(item => `${item[1]}: ${item[0]}`).join('<br>');
-                document.getElementById('ranking').innerHTML = rankingDisplay;
+        function loadCollatedResults() {
+            const collatedResultsContainer = document.getElementById('collated-results');
+            let collatedResults = JSON.parse(localStorage.getItem('collatedSurveyData')) || [];
 
-                document.getElementById('add_location').innerText = surveyData.add_location;
-                document.getElementById('comments').innerText = surveyData.comments;
-                document.getElementById('name').innerText = surveyData.name;
+            collatedResultsContainer.innerHTML = '';
+
+            collatedResults.forEach(data => {
+                collatedResultsContainer.innerHTML += `
+                    <tr>
+                        <td>Did you enjoy the Party Bus enough to go again?</td>
+                        <td>${data.enjoy_party_bus}</td>
+                    </tr>
+                    <tr>
+                        <td>Your 2 favorite locations</td>
+                        <td>${data.favorites}</td>
+                    </tr>
+                    <tr>
+                        <td>Add a location you would like to visit</td>
+                        <td>${data.add_location}</td>
+                    </tr>
+                    <tr>
+                        <td>Comments</td>
+                        <td>${data.comments}</td>
+                    </tr>
+                    <tr>
+                        <td>Your name</td>
+                        <td>${data.name}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function clearData() {
+            if (confirm('Are you sure you want to clear all data?')) {
+                localStorage.removeItem('collatedSurveyData');
+                alert('All data has been cleared.');
+                loadCollatedResults(); // Refresh the results display
             }
-        });
+        }
+
+        // Check if the user is authorized to view the page
+        function checkAuthorization() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const authorized = urlParams.get('authorized');
+
+            if (authorized === 'true') {
+                loadCollatedResults();
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Check authorization on page load
+        document.addEventListener('DOMContentLoaded', checkAuthorization);
     </script>
 </body>
 </html>
