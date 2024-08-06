@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Survey Response - FAM Ladies Night Out / Nee-Nee's Soul Tour Party Bus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .results-table th, .results-table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .results-table th {
+            background-color: #f2f2f2;
+        }
+        .results-table td {
+            background-color: #ffffff;
+        }
+        p.message {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Survey Response</h1>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Did you enjoy the Party Bus enough to go again?</td>
+                    <td id="enjoy_party_bus"></td>
+                </tr>
+                <tr>
+                    <td>Ranking of Locations</td>
+                    <td id="ranking"></td>
+                </tr>
+                <tr>
+                    <td>Add a location you would like to visit</td>
+                    <td id="add_location"></td>
+                </tr>
+                <tr>
+                    <td>Comments</td>
+                    <td id="comments"></td>
+                </tr>
+                <tr>
+                    <td>Your name</td>
+                    <td id="name"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="message">Results will be shared upon receipt of all submissions.</p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const surveyData = JSON.parse(localStorage.getItem('surveyData'));
+            
+            if (surveyData) {
+                document.getElementById('enjoy_party_bus').innerText = surveyData.enjoy_party_bus;
+
+                const ranking = [];
+                for (let key in surveyData.ranking) {
+                    ranking.push([key.replace(/_/g, ' '), surveyData.ranking[key]]);
+                }
+                ranking.sort((a, b) => a[1] - b[1]);
+                const rankingDisplay = ranking.map(item => `${item[1]}: ${item[0]}`).join('<br>');
+                document.getElementById('ranking').innerHTML = rankingDisplay;
+
+                document.getElementById('add_location').innerText = surveyData.add_location;
+                document.getElementById('comments').innerText = surveyData.comments;
+                document.getElementById('name').innerText = surveyData.name;
+            }
+        });
+    </script>
